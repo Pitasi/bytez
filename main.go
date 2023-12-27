@@ -105,5 +105,6 @@ func main() {
 		}
 	})
 
-	log.Fatal(http.ListenAndServe("127.0.0.1:8080", nil))
+	log.Print("listening on :8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
