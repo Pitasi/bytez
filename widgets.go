@@ -133,13 +133,19 @@ func (b Bech32) Parse(s string, params url.Values) ([]byte, error) {
 }
 
 func (b Bech32) HTML(bz []byte, params url.Values) template.HTML {
+	hrp := params.Get("hrp")
+	if hrp == "" {
+		hrp = "bytez"
+	}
+
 	w := new(bytes.Buffer)
 	template.Must(template.New("bech32").Funcs(template.FuncMap{
 		"encode": func(b []byte) string {
-			s, err := bech32.ConvertAndEncode(params.Get("hrp"), b)
+			s, err := bech32.ConvertAndEncode(hrp, b)
 			if err != nil {
 				return err.Error()
 			}
+
 			return s
 		},
 	}).Parse(`
@@ -162,7 +168,7 @@ func (b Bech32) HTML(bz []byte, params url.Values) template.HTML {
 		HRP string
 		BZ  []byte
 	}{
-		HRP: params.Get("hrp"),
+		HRP: hrp,
 		BZ:  bz,
 	})
 	return template.HTML(w.String())
