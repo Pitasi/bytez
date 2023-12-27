@@ -76,7 +76,7 @@ func main() {
 		<link rel="stylesheet" href="/static/tailwind.min.css">
     </head>
     <body>
-        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <script src="/static/htmx-1.9.10.min.js"></script>
 		<main class="flex flex-col gap-6 mt-10 max-w-lg mx-auto font-mono">
 			<div class="flex flex-col">
 				<h1 class="text-3xl text-gray-300 font-bold">Bytez</h1>
