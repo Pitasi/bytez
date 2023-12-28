@@ -98,7 +98,7 @@ func main() {
 					document.getElementById("w-input-fallback").value = value;
 				}
 			</script>
-			<form id="form" hx-get="/" hx-target="body" hx-push-url="true" hx-trigger="submit,keyup from:input delay:10ms" hx-sync="this:replace">
+			<form id="form" hx-get="/" hx-target="body" hx-push-url="true" hx-trigger="submit,keyup from:input delay:250ms" hx-sync="this:replace">
 				<button id="w-input" type="submit" name="w" value="" class="hidden" tabindex="-1"></button>
 				<input type="hidden" id="w-input-fallback" name="w" value="" />
 				<div class="flex flex-col mt-10 gap-10">
