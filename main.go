@@ -91,7 +91,8 @@ func main() {
     </head>
     <body>
         <script src="/static/htmx-1.9.10.min.js"></script>
-		<main class="flex flex-col gap-6 mt-10 px-4 md:px-0 max-w-lg mx-auto font-mono">
+
+		<main class="flex flex-col gap-6 mt-10 px-4 pb-64 md:px-0 max-w-lg mx-auto font-mono">
 			<div class="flex flex-col">
 				<h1 class="text-3xl text-gray-300 font-bold">Bytez</h1>
 				<p class="text-lg text-gray-500">Convert bytes to different formats</p>
@@ -113,6 +114,12 @@ func main() {
 				</div>
 			</form>
 		</main>
+
+		<footer class="px-4 pb-12 md:px-0 max-w-lg mx-auto font-mono text-gray-400">
+			made by <a class="text-gray-300 hover:underline" target="_blank" href="https://anto.pt">💡 anto.pt</a>
+			<br />
+			<a class="text-gray-300 hover:underline" target="_blank" href="https://github.com/Pitasi/bytez">⭐️ source code</a>
+		</footer>
     </body>
 </html>
         `)).Execute(w, struct {
