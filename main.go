@@ -44,6 +44,7 @@ func main() {
 			Hex{},
 			Base64{},
 			Bech32{},
+			Protobuf{},
 		}
 
 		var input []byte

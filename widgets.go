@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/cosmos/cosmos-sdk/types/bech32"
+	"github.com/protocolbuffers/protoscope"
 )
 
 type Hex struct{}
@@ -180,6 +181,8 @@ func (h Binary) ID() string {
 }
 
 func (h Binary) Parse(s string, _ url.Values) ([]byte, error) {
+	s = strings.ReplaceAll(s, " ", "")
+
 	if len(s)%8 != 0 {
 		s = strings.Repeat("0", 8-len(s)%8) + s
 	}
@@ -269,5 +272,23 @@ func (h Decimal) HTML(b []byte, _ url.Values) template.HTML {
   </div>
 </div>
     `)).Execute(w, b)
+	return template.HTML(w.String())
+}
+
+type Protobuf struct{}
+
+func (h Protobuf) HTML(b []byte, _ url.Values) template.HTML {
+	w := new(bytes.Buffer)
+
+	rendered := protoscope.Write(b, protoscope.WriterOptions{})
+
+	template.Must(template.New("protobuf").Parse(`
+<div>
+  <label class="block text-sm font-medium leading-6 text-gray-500">Protobuf</label>
+  <div class="mt-2 flex">
+	<pre class="w-full overflow-x-scroll bg-gray-800 rounded-md border-0 py-1.5 px-3 text-gray-50 ring-1 ring-inset ring-gray-700">{{ . }}</pre>
+  </div>
+</div>
+    `)).Execute(w, rendered)
 	return template.HTML(w.String())
 }
