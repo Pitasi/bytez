@@ -32,18 +32,17 @@ func (h Hex) HTML(b []byte, _ url.Values) template.HTML {
 			return hex.EncodeToString(b)
 		},
 	}).Parse(`
-<form hx-get="/" hx-target="body" hx-swap="outerHTML" hx-push-url="true">
+<div>
   <label for="email" class="block text-sm font-medium leading-6 text-gray-500">Hexadecimal</label>
   <div class="mt-2 flex rounded-md shadow-sm">
-    <input type="hidden" name="w" value="hex" />
     <div class="relative flex flex-grow items-stretch focus-within:z-10">
-      <input type="text" name="input" id="input" class="block w-full bg-gray-800 rounded-none rounded-l-md border-0 py-1.5 px-3 text-gray-50 ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-800 sm:text-sm sm:leading-6" value="{{ . | encode }}" placeholder="aabbccddeeff" name="input" />
-      <button type="submit" class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-50 ring-1 ring-inset ring-gray-700 hover:bg-gray-900">
+      <input id="input-hex" type="text" onfocusin="updateInput('hex')" name="input-hex" class="block w-full bg-gray-800 rounded-none rounded-l-md border-0 py-1.5 px-3 text-gray-50 ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-800 sm:text-sm sm:leading-6" value="{{ . | encode }}" placeholder="aabbccddeeff" name="input-hex" />
+      <button type="submit" name="w" value="hex" class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-50 ring-1 ring-inset ring-gray-700 hover:bg-gray-900">
         Submit
       </button>
     </div>
   </div>
-</form>
+</div>
     `)).Execute(w, b)
 	return template.HTML(w.String())
 }
@@ -65,18 +64,17 @@ func (b Base64) HTML(bz []byte, _ url.Values) template.HTML {
 			return base64.StdEncoding.EncodeToString(b)
 		},
 	}).Parse(`
-<form hx-get="/" hx-target="body" hx-swap="outerHTML" hx-push-url="true">
+<div>
   <label for="email" class="block text-sm font-medium leading-6 text-gray-500">Base64</label>
   <div class="mt-2 flex rounded-md shadow-sm">
-    <input type="hidden" name="w" value="base64" />
     <div class="relative flex flex-grow items-stretch focus-within:z-10">
-      <input type="text" name="input" id="input" class="block w-full bg-gray-800 rounded-none rounded-l-md border-0 py-1.5 px-3 text-gray-50 ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-800 sm:text-sm sm:leading-6" value="{{ . | encode }}" placeholder="" name="input" />
-      <button type="submit" class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-50 ring-1 ring-inset ring-gray-700 hover:bg-gray-900">
+      <input id="input-base64" type="text" onfocusin="updateInput('base64')" name="input-base64" class="block w-full bg-gray-800 rounded-none rounded-l-md border-0 py-1.5 px-3 text-gray-50 ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-800 sm:text-sm sm:leading-6" value="{{ . | encode }}" placeholder="" name="input-base64" />
+      <button type="submit" name="w" value="base64" class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-50 ring-1 ring-inset ring-gray-700 hover:bg-gray-900">
         Submit
       </button>
     </div>
   </div>
-</form>
+</div>
     `)).Execute(w, bz)
 	return template.HTML(w.String())
 }
@@ -98,18 +96,17 @@ func (b ASCII) HTML(bz []byte, _ url.Values) template.HTML {
 			return string(b)
 		},
 	}).Parse(`
-<form hx-get="/" hx-target="body" hx-swap="outerHTML" hx-push-url="true">
+<div>
   <label for="email" class="block text-sm font-medium leading-6 text-gray-500">ASCII</label>
   <div class="mt-2 flex rounded-md shadow-sm">
-    <input type="hidden" name="w" value="ascii" />
     <div class="relative flex flex-grow items-stretch focus-within:z-10">
-      <input type="text" name="input" id="input" class="block w-full bg-gray-800 rounded-none rounded-l-md border-0 py-1.5 px-3 text-gray-50 ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-800 sm:text-sm sm:leading-6" value="{{ . | encode }}" placeholder="" name="input" />
-      <button type="submit" class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-50 ring-1 ring-inset ring-gray-700 hover:bg-gray-900">
+      <input id="input-ascii" type="text" onfocusin="updateInput('ascii')" class="block w-full bg-gray-800 rounded-none rounded-l-md border-0 py-1.5 px-3 text-gray-50 ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-800 sm:text-sm sm:leading-6" value="{{ . | encode }}" placeholder="" name="input-ascii" />
+      <button type="submit" name="w" value="ascii" class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-50 ring-1 ring-inset ring-gray-700 hover:bg-gray-900">
         Submit
       </button>
     </div>
   </div>
-</form>
+</div>
     `)).Execute(w, bz)
 	return template.HTML(w.String())
 }
@@ -149,21 +146,20 @@ func (b Bech32) HTML(bz []byte, params url.Values) template.HTML {
 			return s
 		},
 	}).Parse(`
-<form hx-get="/" hx-target="body" hx-swap="outerHTML" hx-push-url="true">
+<div>
   <label for="email" class="block text-sm font-medium leading-6 text-gray-500">Bech32</label>
   <div class="mt-2 flex rounded-md shadow-sm">
-    <input type="hidden" name="w" value="bech32" />
 	<div class="flex flex-col w-full gap-1">
-      <input type="text" class="block w-full bg-gray-800 rounded-md border-0 py-1.5 text-gray-50 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ .HRP }}" placeholder="cosmos" name="hrp" />
+      <input id="input-hrp" type="text" onfocusin="updateInput('bech32');" class="block w-full bg-gray-800 rounded-md border-0 py-1.5 text-gray-50 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="{{ .HRP }}" placeholder="cosmos" name="hrp" />
       <div class="relative flex flex-grow items-stretch focus-within:z-10">
-        <input type="text" name="input" id="input" class="block w-full bg-gray-800 rounded-none rounded-l-md border-0 py-1.5 px-3 text-gray-50 ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-800 sm:text-sm sm:leading-6" value="{{ .BZ | encode }}" placeholder="" name="input" />
-        <button type="submit" class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-50 ring-1 ring-inset ring-gray-700 hover:bg-gray-900">
+        <input id="input-bech32" type="text" onfocusin="updateInput('bech32')" name="input-bech32" class="block w-full bg-gray-800 rounded-none rounded-l-md border-0 py-1.5 px-3 text-gray-50 ring-1 ring-inset ring-gray-700 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-800 sm:text-sm sm:leading-6" value="{{ .BZ | encode }}" placeholder="" name="input-bech32" />
+        <button name="w" value="bech32" type="submit" class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-50 ring-1 ring-inset ring-gray-700 hover:bg-gray-900">
           Submit
         </button>
       </div>
     </div>
   </div>
-</form>
+</div>
 	`)).Execute(w, struct {
 		HRP string
 		BZ  []byte

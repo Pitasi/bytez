@@ -45,9 +45,17 @@ func main() {
 		var input []byte
 
 		q := r.URL.Query()
-		if len(q["w"]) > 0 && len(q["input"]) > 0 {
-			widgetID := q.Get("w")
-			strInput := q.Get("input")
+
+		var widgetID string
+		for _, w1 := range q["w"] {
+			if len(w1) > 0 {
+				widgetID = w1
+				break
+			}
+		}
+
+		if widgetID != "" {
+			strInput := q.Get("input-" + widgetID)
 
 			var found bool
 			for _, parser := range parser {
@@ -78,17 +86,27 @@ func main() {
     </head>
     <body>
         <script src="/static/htmx-1.9.10.min.js"></script>
-		<main class="flex flex-col gap-6 mt-10 max-w-lg mx-auto font-mono">
+		<main class="flex flex-col gap-6 mt-10 px-4 md:px-0 max-w-lg mx-auto font-mono">
 			<div class="flex flex-col">
 				<h1 class="text-3xl text-gray-300 font-bold">Bytez</h1>
 				<p class="text-lg text-gray-500">Convert bytes to different formats</p>
 			</div>
 
-			<div class="flex flex-col mt-10 gap-10">
-				{{range .Widgets}}
-					{{.HTML $.Input $.Params}}
-				{{end}}
-			</div>
+			<script>
+				function updateInput(value) {
+					document.getElementById("w-input").value = value;
+					document.getElementById("w-input-fallback").value = value;
+				}
+			</script>
+			<form id="form" hx-get="/" hx-target="body" hx-push-url="true" hx-trigger="submit,keyup from:input delay:10ms" hx-sync="this:replace">
+				<button id="w-input" type="submit" name="w" value="" class="hidden" tabindex="-1"></button>
+				<input type="hidden" id="w-input-fallback" name="w" value="" />
+				<div class="flex flex-col mt-10 gap-10">
+					{{range .Widgets}}
+						{{.HTML $.Input $.Params}}
+					{{end}}
+				</div>
+			</form>
 		</main>
     </body>
 </html>
